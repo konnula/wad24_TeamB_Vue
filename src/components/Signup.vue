@@ -8,7 +8,7 @@
             </div>
             <div class="form-group" id="email-group">
               <label for="password">Password:</label>
-              <input type="password" placeholder="Password" name="password" id="password" required v-model="password">
+              <input type="text" placeholder="Password" name="password" id="password" required v-model="password">
             </div>
             <div>
               <button id="signup-button">Sign up</button>
@@ -18,7 +18,7 @@
               <li v-for="error in errors" :key="error.id"> {{ error }}</li>
             </ul>
             </div>
-            <div v-else class="signup-success"><b>Signed up successfully!</b></div>
+            <div v-else-if="success" class="signup-success"><b>Signed up successfully!</b></div>
           </form>
         </div>
   </main>
@@ -31,32 +31,36 @@
       return {
       email: '',
       password: '',
-      errors:[]
+      errors:[],
+      success: false
     }},
     methods: {
       /* Validate password */
       signUp() {
         this.errors = []
+        this.success = false;
         console.log('signup is submitted');
-        let error_text = ["password must be between 8-15 chars", 
+        let error_text = ["password must be between 8-15 characters", 
         "password must include at least one uppercase alphabet character", 
         "password must include at least two lowercase alphabet characters",
-        "Includes at least one numeric value",
-        "t should start with an uppercase alphabet", 
-        " include the character '_'"]
+        "password must include  at least one numeric value",
+        "password must start with an uppercase alphabet", 
+        "password must include the character '_'"]
         let error_regex = [
-          //, /* 1 uppercase alphabet */
-          //, /* 2 lowercase alphabets */
-          //, /* 1 numberic value */
-          //, /* start with uppercase */
-          //  /* include the character '_' */
+          /[A-Z]/, /* 1 uppercase alphabet */
+          /[a-z].*[a-z]/, /* 2 lowercase alphabets */
+          /[0-9]/, /* 1 numberic value */
+          /^[A-Z]/, /* start with uppercase */
+          /_/  /* include the character '_' */
         ]
         if (this.password.length < 8 || this.password> 15) 
           this.errors.push(error_text[0]);
         for (let i=0; i<error_regex.length; i++) {
-          if (error_regex[i].test(this.password))
-            this.errors.push(error_text[i])
+          if (!error_regex[i].test(this.password))
+            this.errors.push(error_text[i+1]);
         }
+        if (!this.errors.length)
+          this.success = true;
     },
   }
 }
@@ -112,9 +116,12 @@ input {
   color: red;
 }
 
+.error-list > ul {
+  text-align: left;
+}
+
 .signup-success {
   color: green;
-  display:none;
 }
 
 </style>
