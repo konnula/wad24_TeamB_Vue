@@ -6,9 +6,9 @@
               <label for="email">Email:</label>
               <input type="email" placeholder="Email" name="email" id="email" required v-model="email">
             </div>
-            <div class="form-group" id="email-group">
+            <div class="form-group" id="password-group">
               <label for="password">Password:</label>
-              <input type="text" placeholder="Password" name="password" id="password" required v-model="password">
+              <input type="password" placeholder="Password" name="password" id="password" required v-model="password">
             </div>
             <div>
               <button id="signup-button">Sign up</button>
@@ -68,35 +68,31 @@
 
 <style scoped>
 #signup_form {
-  display: grid;
   grid-template-columns: auto auto;
   gap: 10px;
   background-color: lightyellow;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 50px;
-  margin: 10% 20% 10%;
+  margin: 10% 30% 10%;
   border-radius: 50px;
 }
 
-#email_text {
-  grid-column: 1;
-  grid-row: 1;
-  text-align: right;
+@media (max-width: 800px){
+    #signup_form {
+      margin: 10% 5% 10%;
+    }
 }
-#loginEmail {
-  grid-column: 2;
-  grid-row: 1;
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+  margin-bottom: 10px;
 }
-#password_text {
-  text-align: right;
-  grid-column: 1;
-  grid-row: 2;
-}
-#loginPassword {
-  grid-column: 2;
-  grid-row: 2;
+
+#email, #password {
+  flex: 1 1 100px; 
+  text-align: left;
 }
 
 #signupButton {
@@ -114,6 +110,7 @@ input {
 
 .error-list {
   color: red;
+  text-align: left;
 }
 
 .error-list > ul {
@@ -122,6 +119,10 @@ input {
 
 .signup-success {
   color: green;
+}
+
+#signup-button {
+  background-color: lightblue;
 }
 
 </style>
