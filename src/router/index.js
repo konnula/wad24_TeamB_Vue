@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import MainView from '../views/MainView.vue'
+import MainView from '../views/PostsView.vue'
 import SignupView from '../views/SignupView.vue'
 
 const routes = [
