@@ -1,5 +1,5 @@
 <template>
-        <div class="post-wrapper">
+        <div class="common">
             <article v-for="post in postList" :key="post.id">
                 <h2 class="title"> [{{ post.title }}]</h2>
                 <img class="userIcon" :src="post.userLogo" alt="User Logo"> <br>
@@ -36,6 +36,14 @@ export default{
 
 <style>
 
+.common {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
 .userIcon {
     max-width: 50px;
     max-height: 50px;
@@ -46,6 +54,7 @@ export default{
 article { 
     display: inline; /* for boxing content */
     border: 2px solid #000;   /* solid black border */
+    max-inline-size: 50%; /* uses 50% of the space */
     background-color: #ebebeb; /* subtle gray background */
     padding: 20px; /* Add padding inside the box */
     margin-bottom: 20px; /* Space between the articles */

@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="common"> <br>
+        <div>
             <h1>Posts</h1>
             <Post/>
 
@@ -31,14 +31,6 @@ export default	{
 </script>
 
 <style>
-
-.common {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 10px;
-}
 
 .resetButton {
     background-color: papayawhip;
