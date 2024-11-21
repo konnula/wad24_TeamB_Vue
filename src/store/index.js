@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    posts:[
+    postList:[
       {
           id: 0,
           title: "Post #1",
@@ -10,7 +10,7 @@ export default createStore({
           createTime: "Sept 25, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Tartu_%C3%9Clikooli_peahoone_2014-12.JPG/1200px-Tartu_%C3%9Clikooli_peahoone_2014-12.JPG",
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       }, 
       {
@@ -20,7 +20,7 @@ export default createStore({
           createTime: "Oct 8, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: null,
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       },
       {
@@ -30,7 +30,7 @@ export default createStore({
           createTime: "Oct 12, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://parmet.ee/wp-content/uploads/elementor/thumbs/Parmet-Tartu-Ulikooli-Delta-hoone-fassaad-arhitektuurifoto-24-qmia6xkgv6ws9rylv3f6qxvkzzixvho15cdi1d14tg.webp",
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       },
       {
@@ -40,7 +40,7 @@ export default createStore({
           createTime: "Oct 20, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://fi.ut.ee/sites/default/files/styles/ut_content_teaser/public/2021-12/Physicum_0.jpg?h=3be7dba5&itok=1gZotaqd",
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
           },
       {
@@ -50,7 +50,7 @@ export default createStore({
           createTime: "Oct 22, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: null,
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       },
       {
@@ -60,7 +60,7 @@ export default createStore({
           createTime: "Oct 23, 1985",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://cdn.britannica.com/36/234736-050-4AC5B6D5/Scottish-fold-cat.jpg",
-          userLogo: "../assets/norris-chuck-image.jpg",
+          userLogo: require("@/assets/norris-chuck-image.jpg"),
           likes : 0
       },
       {
@@ -70,7 +70,7 @@ export default createStore({
           createTime: "Oct 24, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: null,
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       },
       {
@@ -80,7 +80,7 @@ export default createStore({
           createTime: "Oct 25, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: null,
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       },
       {
@@ -90,7 +90,7 @@ export default createStore({
           createTime: "Oct 29, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://miro.medium.com/v2/resize:fit:1200/1*LyZcwuLWv2FArOumCxobpA.png",
-          userLogo: "../assets/ut_ringlogo_est_eng_sinine.png",
+          userLogo: require("@/assets/ut_ringlogo_est_eng_sinine.png"),
           likes : 0
       },
       {
@@ -100,7 +100,7 @@ export default createStore({
           createTime: "Nov 2, 2024",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro quam est blanditiis tempore reiciendis ipsum ratione saepe. Quisquam deserunt ducimus qui minus voluptatem nisi. Suscipit vitae molestiae quidem dicta.",
           imagePath: "https://media.dev.to/cdn-cgi/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftas8db4xhg254qaztdz9.jpg",
-          userLogo: "../assets/login.png",
+          userLogo: require("@/assets/login.png"),
           likes : 0
       }
     ]
@@ -109,13 +109,15 @@ export default createStore({
   },
   mutations: {
     IncreaseLike: (state, postId) => {
-        const post = state.post.find(post => post.id == postId);
+        const post = state.postList.find(post => post.id == postId);
         if (post){
             post.likes += 1;
+        }else {
+            console.error(`Post with id ${postId} not found.`);
         }
     },
     ResetLikes: state => {
-        state.posts.array.forEach(post => {
+        state.postList.forEach(post => {
             post.likes = 0;
         });
     }
