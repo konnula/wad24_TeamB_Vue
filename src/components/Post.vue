@@ -1,7 +1,7 @@
 <template>
         <div class="common">
             <article v-for="post in postList" :key="post.id">
-                <h2 class="title"> [{{ post.title }}]</h2>
+                <h2 class="title"> {{ post.title }}</h2>
                 <img class="userIcon" :src="post.userLogo" alt="User Logo"> <br>
                 <div> By {{ post.author }} on {{ post.createTime }}</div> <br>
                 <img :src="post.imagePath" alt=""> <!-- alt empty so if does not exist image, will not display -->
