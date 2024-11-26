@@ -6,9 +6,15 @@
         <div class="wave" id="wave3"></div>
         <div class="wave" id="wave4"></div>
       </div>
+      <ul class="social-icon">
+        <li class="social-icon__item"><a class="social-icon__link" href="https://github.com/konnula/wad24_TeamB_Vue" target="_blank">
+          <img class="logo-github" src="../assets/GitHub-Logo.png" alt="GitHub Logo">
+        </a></li>
+      </ul>
       <ul class="menu">
         <li class="menu__item"><router-link to="/" class="menu__link">Home</router-link></li>
         <li class="menu__item"><router-link to="/signup" class="menu__link">Signup</router-link></li>
+        <li class="menu__item"><a class="menu__link" href="https://github.com/konnula/wad24_TeamB_Vue">Github</a></li>
         <li class="menu__item"><a class="menu__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Secret</a></li>
       </ul>
       <p>&copy;2024 WAD Team B: Triin Joon, Maksim Kelus, Herbert Konnula</p>
@@ -45,6 +51,11 @@ h1 {
   font-family: "Poppins", sans-serif;
 }
 
+img {
+  width: 5%;
+  height: 5%;
+}
+
 body {
   display: flex;
   background: #333;
@@ -66,6 +77,7 @@ body {
   margin-top: 150px; /* Avoid collision with the main body */
 }
 
+.social-icon, 
 .menu {
   position: relative;
   display: flex;
@@ -75,8 +87,20 @@ body {
   flex-wrap: wrap;
 }
 
+.social-icon__item, 
 .menu__item {
   list-style: none;
+}
+
+.social-icon__link {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+}
+.social-icon__link:hover {
+  transform: translateY(-10px);
 }
 
 .menu__link {
