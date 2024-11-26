@@ -113,11 +113,4 @@ article img + p {
     font-style: italic;
     color: black;
 }
-
-
-
-
-
 </style>
-
-

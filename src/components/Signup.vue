@@ -70,7 +70,7 @@
 #signup_form {
   grid-template-columns: auto auto;
   gap: 10px;
-  background-color: lightyellow;
+  background-color: #f5f5f5;
   flex-direction: column;
   padding: 50px;
   margin: 10% 30% 10%;
@@ -95,9 +95,21 @@
   text-align: left;
 }
 
-#signupButton {
-  grid-column-start: 1;
-  grid-column-end: 3;
+#signup-button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+
+#signup-button:hover {
+  filter: drop-shadow(0px 0px 20px aqua);
 }
 
 input {
@@ -119,10 +131,6 @@ input {
 
 .signup-success {
   color: green;
-}
-
-#signup-button {
-  background-color: lightblue;
 }
 
 </style>

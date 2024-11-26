@@ -33,11 +33,20 @@ export default	{
 <style>
 
 .resetButton {
-    background-color: papayawhip;
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
 }
 
 .resetButton:hover {
     filter: drop-shadow(0px 0px 20px aqua);
 }
+
 
 </style>
