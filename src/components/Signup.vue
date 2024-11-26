@@ -53,7 +53,7 @@
           /^[A-Z]/, /* start with uppercase */
           /_/  /* include the character '_' */
         ]
-        if (this.password.length < 8 || this.password> 15) 
+        if (this.password.length < 8 || this.password.length > 15) 
           this.errors.push(error_text[0]);
         for (let i=0; i<error_regex.length; i++) {
           if (!error_regex[i].test(this.password))
