@@ -33,7 +33,15 @@ export default	{
 <style>
 
 .resetButton {
-    background-color: lightblue;
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
 }
 
 .resetButton:hover {

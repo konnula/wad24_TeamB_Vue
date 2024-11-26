@@ -1,5 +1,6 @@
 <template>
-    <h1>Hello from the footer!</h1>
+  <h1>Copyright: WAD 2024 Team B</h1>
+  <h1>Team members: Triin Joon, Maksim Kelus, Herbert Konnula</h1>
 </template>
   
 <script>
