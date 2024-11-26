@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwad24_team_b"]=self["webpackChunkwad24_team_b"]||[]).push([[594],{8103:function(n,u,a){a.r(u),a.d(u,{default:function(){return d}});var e=a(6768);const s={class:"signup"};function t(n,u){return(0,e.uX)(),(0,e.CE)("div",s,u[0]||(u[0]=[(0,e.Lk)("h1",null,"This is an Sign-up page",-1)]))}var r=a(1241);const c={},i=(0,r.A)(c,[["render",t]]);var d=i}}]);
+//# sourceMappingURL=about.2a078cdb.js.map
