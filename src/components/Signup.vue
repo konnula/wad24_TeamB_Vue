@@ -70,7 +70,7 @@
 #signup_form {
   grid-template-columns: auto auto;
   gap: 10px;
-  background-color: lightyellow;
+  background-color: #f5f5f5;
   flex-direction: column;
   padding: 50px;
   margin: 10% 30% 10%;
@@ -98,6 +98,10 @@
 #signupButton {
   grid-column-start: 1;
   grid-column-end: 3;
+}
+
+#signup-button:hover {
+  filter: drop-shadow(0px 0px 20px aqua);
 }
 
 input {

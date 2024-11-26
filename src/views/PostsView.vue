@@ -33,7 +33,7 @@ export default	{
 <style>
 
 .resetButton {
-    background-color: papayawhip;
+    background-color: lightblue;
 }
 
 .resetButton:hover {
