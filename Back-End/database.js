@@ -1,9 +1,16 @@
 const Pool = require('pg').Pool;
 
+/*
+To run the server, the machine MUST:
+- have installed PostgreSQL
+- have PostgreSQL user "wad" with password "wad24" (does not need any extra rights)
+- have a database "WAD24_Team-B" with owner "wad"
+*/
+
 const pool = new Pool({
-    user: "postgres",
-    password: "sql", //add your password
-    database: "WAD24_Team-B_HW4",
+    user: "wad",
+    password: "wad24", 
+    database: "WAD24_Team-B",
     host: "localhost",
     port: "5432"
 });
