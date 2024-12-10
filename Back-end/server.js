@@ -35,7 +35,7 @@ app.get('/api/posts', async(req, res) => {
         console.log("Posts GET (all) request has arrived");
         const posts = await pool.query(
             "SELECT * FROM posts ORDER BY time DESC"
-            //"SELECT til FROM posts JOIN users ON posts.userid = users.id ORDER BY time DESC"
+            //"SELECT * FROM posts JOIN users ON posts.userid = users.id ORDER BY time DESC"
         );
         res.json(posts.rows);
     } catch (err) {
