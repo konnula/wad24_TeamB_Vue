@@ -1,8 +1,8 @@
-### GET posts
+### Get all posts
 GET http://localhost:3000/api/posts 
 Content-Type: application/json
 
-### GET a post
+### Get one post
 GET http://localhost:3000/api/posts/2
 Content-Type: application/json
 
@@ -26,8 +26,8 @@ Content-Type: application/json
     "userid": 5
 }
 
-### Delete a post
+### Delete one post
 DELETE http://localhost:3000/api/posts/3
 
-### DELETE all posts
+### Delete all posts
 DELETE http://localhost:3000/api/posts
