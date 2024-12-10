@@ -19,9 +19,8 @@ const execute = async(query) => {
     }
 };
 
-
 const createUsersTblQuery = `
-    CREATE TABLE IF NOT EXISTS "Users" (
+    CREATE TABLE IF NOT EXISTS "users" (
         id SERIAL PRIMARY KEY NOT NULL,
         email VARCHAR(200) NOT NULL UNIQUE,
         username VARCHAR(100) NOT NULL,
@@ -30,22 +29,22 @@ const createUsersTblQuery = `
 
 execute(createUsersTblQuery).then(result => {
     if (result) {
-        console.log('Table "Users" is created');
+        console.log('Table "users" is created');
     }
 });
 
 const createPostsTblQuery = `
-    CREATE TABLE IF NOT EXISTS "Posts" (
+    CREATE TABLE IF NOT EXISTS "posts" (
         id SERIAL PRIMARY KEY NOT NULL,
         title VARCHAR(100) NOT NULL,
         body VARCHAR(1000) NOT NULL,
-        date DATE NOT NULL,
+        time TIMESTAMP NOT NULL,
         userid INTEGER NOT NULL
     );`;
 
 execute(createPostsTblQuery).then(result => {
     if (result) {
-        console.log('Table "Posts" is created');
+        console.log('Table "posts" is created');
     }
 });
 

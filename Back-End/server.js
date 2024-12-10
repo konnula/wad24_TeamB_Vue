@@ -11,7 +11,96 @@ app.use(cors());
 // It parses incoming requests with JSON payloads and is based on body-parser.
 app.use(express.json());
 
-//  Handling HTTP requests code will go here  
+// Handling HTTP request for table "Posts"
+
+// Handling Posts POST request
+app.post('/api/posts/', async(req, res) => {
+    try {
+        console.log("Posts POST request has arrived");
+        const post = req.body;
+        const newpost = await pool.query(
+            "INSERT INTO posts(title, body, time, userid) values ($1, $2, localtimestamp, $3)    RETURNING*", [post.title, post.body, post.userid]
+        );
+        res.json(newpost);
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+});
+
+// Handling Posts GET (all) requests
+app.get('/api/posts', async(req, res) => {
+    try {
+        console.log("Posts GET (all) request has arrived");
+        const posts = await pool.query(
+            "SELECT * FROM posts ORDER BY id DESC"
+        );
+        res.json(posts.rows);
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+});
+
+// Handling Posts GET (one post) requests
+app.get('/api/posts/:id', async(req, res) => {
+    try {
+        console.log("Posts GET (one post) request has arrived");
+        const { id } = req.params; // assigning all route "parameters" to the id "object"
+        const posts = await pool.query( // pool.query runs a single query on the database.
+            //$1 is mapped to the first element of { id } (which is just the value of id). 
+            "SELECT * FROM posts WHERE id = $1", [id]
+        );
+        res.json(posts.rows[0]);  // we already know that the row array contains a single element, and here we are trying to access it
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+});
+
+// Handling Posts PUT requests
+app.put('/api/posts/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        const post = req.body;
+        console.log("Posts PUT request has arrived");
+        const updatepost = await pool.query(
+            "UPDATE posts SET (title, body, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1", [id, post.title, post.body, post.userid]
+        );
+        res.json(updatepost);
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+});
+
+// Handling Posts DELETE request
+app.delete('/api/posts/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("Posts DELETE (one post) request has arrived");
+        const deletepost = await pool.query(
+            "DELETE FROM Posts WHERE id = $1", [id]
+        );
+        res.json(deletepost);
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+}); 
+
+// Handling Posts DELETE (all) request
+app.delete('/api/posts', async(req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("Posts DELETE (all) request has arrived");
+        const deletepost = await pool.query(
+            "DELETE FROM Posts"
+        );
+        res.json(deletepost);
+    } catch (err) {
+        console.error("Database error: " + err.message);
+    }
+}); 
+
+
+// TODO: Handling HTTP request for table "Users"
+
 
 app.listen(port, () => {
     console.log("Server is listening to port " + port)
