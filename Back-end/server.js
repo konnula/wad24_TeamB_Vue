@@ -34,7 +34,8 @@ app.get('/api/posts', async(req, res) => {
     try {
         console.log("Posts GET (all) request has arrived");
         const posts = await pool.query(
-            "SELECT * FROM posts ORDER BY id DESC"
+            "SELECT * FROM posts ORDER BY time DESC"
+            //"SELECT til FROM posts JOIN users ON posts.userid = users.id ORDER BY time DESC"
         );
         res.json(posts.rows);
     } catch (err) {
@@ -47,9 +48,9 @@ app.get('/api/posts/:id', async(req, res) => {
     try {
         console.log("Posts GET (one post) request has arrived");
         const { id } = req.params; // assigning all route "parameters" to the id "object"
-        const posts = await pool.query( // pool.query runs a single query on the database.
-            //$1 is mapped to the first element of { id } (which is just the value of id). 
+        const posts = await pool.query( 
             "SELECT * FROM posts WHERE id = $1", [id]
+            //"SELECT * FROM posts JOIN users ON posts.userid = users.id WHERE id = $1", [id]
         );
         res.json(posts.rows[0]);  // we already know that the row array contains a single element, and here we are trying to access it
     } catch (err) {
