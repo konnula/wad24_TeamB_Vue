@@ -4,7 +4,7 @@ const Pool = require('pg').Pool;
 To run the server, the machine MUST:
 - have installed PostgreSQL
 - have PostgreSQL user "wad" with password "wad24" (does not need any extra rights)
-- have a database "WAD24_Team-B" with owner "wad"
+- have a SQL database "WAD24_Team-B" with owner "wad"
 */
 
 const pool = new Pool({
