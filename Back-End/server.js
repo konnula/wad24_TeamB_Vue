@@ -6,14 +6,12 @@ const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
 
 const port = process.env.PORT || 3000;
-
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
-
 app.use(express.json());
-
 app.use(cookieParser());
+
 
 // Handling HTTP request for table "Posts"
 
