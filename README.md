@@ -1,4 +1,4 @@
-Practice Session 6, Team B
+# Practice Session 6, Team B
 
 **Please do not make pull requests, it is a school project :)**
 
@@ -6,7 +6,7 @@ Triin Joon, Maksim Kelus, Herbert Konnula
 
 GitHub Repo: https://github.com/konnula/wad24_TeamB_Vue
 
-Deployed project: https://konnula.github.io/wad24_TeamB_Vue/#/
+Deployed project: https://konnula.github.io/wad24_TeamB_Vue/#/ - *outdated*
 
 Web Application Development 2024
 
@@ -19,17 +19,25 @@ Web Application Development 2024
 - Make database user "wad" with password "wad24" (no extra rights needed)
 - Make a database named "WAD24_Team-B" with owner "wad"
 
-### Back-end setup
-Go into Back-end folder and run:
+### Install dependencies
 ```
 npm install
-node server
 ```
 
-### Front-end setup
-Go into Front-end folder and run:
+### Run the Back-end
 ```
-npm install
+npm run server
+```
+
+### Run the Front-end with hot reload
+```
 npm run serve
 ```
 
+### Compile and minify for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

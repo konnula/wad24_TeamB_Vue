@@ -3,7 +3,7 @@ GET http://localhost:3000/api/posts
 Content-Type: application/json
 
 ### Get one post
-GET http://localhost:3000/api/posts/2
+GET http://localhost:3000/api/posts/5
 Content-Type: application/json
 
 ### Post a post
@@ -11,23 +11,23 @@ POST http://localhost:3000/api/posts
 Content-Type: application/json
 
 {
-    "title": "New post!",
+    "title": "New post 2!",
     "body": "New body!",
     "userid": 1
 }
 
 ### Modify a post
-PUT http://localhost:3000/api/posts/1
+PUT http://localhost:3000/api/posts/6
 Content-Type: application/json
 
 {
-    "title": "Post 1 update",
+    "title": "Post 3 update",
     "body": "Newer body :)",
-    "userid": 5
+    "userid": 1
 }
 
 ### Delete one post
-DELETE http://localhost:3000/api/posts/3
+DELETE http://localhost:3000/api/posts/1
 
 ### Delete all posts
 DELETE http://localhost:3000/api/posts
