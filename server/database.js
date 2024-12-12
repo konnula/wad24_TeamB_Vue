@@ -40,12 +40,26 @@ execute(createUsersTblQuery).then(result => {
     }
 });
 
+
+const dropTblQuery = `
+DROP TABLE IF EXISTS posts;
+`;
+
+execute(dropTblQuery).then(result => {
+    if (result) {
+        console.log('Table "posts" is droped');
+    }
+});
+
+
+
 const createPostsTblQuery = `
-    CREATE TABLE IF NOT EXISTS "posts" (
+    CREATE TABLE "posts" (
         id SERIAL PRIMARY KEY NOT NULL,
         title VARCHAR(100) NOT NULL,
-        body VARCHAR(1000) NOT NULL,
+        text VARCHAR(1000) NOT NULL,
         time TIMESTAMP NOT NULL,
+        likes INTEGER NOT NULL,
         userid INTEGER NOT NULL
     );`;
 

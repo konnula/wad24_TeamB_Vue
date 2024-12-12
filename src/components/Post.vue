@@ -2,8 +2,8 @@
         <div class="common">
             <article v-for="post in postList" :key="post.id">
                 <h2 class="title"> {{ post.title }}</h2>
-                <img class="userIcon" :src="post.userLogo" alt="User Logo"> <br>
-                <div> By {{ post.author }} on {{ post.createTime }}</div> <br>
+                <img class="userIcon" :src="post.userLogo" alt=""> <br>
+                <div> By <b>{{ post.author }}</b> on {{ post.time }}</div> <br>
                 <img :src="post.imagePath" alt=""> <!-- alt empty so if does not exist image, will not display -->
                 <p>{{ post.text }}</p>
                 <div class="like_container">
@@ -18,17 +18,29 @@
 export default{
     name: "PostComponent",
     data: function(){
-        return{}
-    },
-    computed: {
-        postList(){
-            return this.$store.state.postList
+        return{
+            postList: []
         }
     },
+    // computed: {
+    //     postList(){
+    //         return this.$store.state.postList
+    //     }
+    // },
     methods:{
         IncreaseLike(postId){
             this.$store.commit("IncreaseLike",postId)
+        },
+        fetchPosts() {
+            fetch(`http://localhost:3000/api/posts/`)
+                .then((response) => response.json())
+                .then((data) => (this.postList = data))
+                .catch((err) => console.log(err.message));
         }
+    },
+    mounted() {
+    this.fetchPosts();
+    console.log("mounted");
     }
 }
 

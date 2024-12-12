@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -174,7 +174,7 @@ app.post('/api/posts', async(req, res) => {
         }
 
         const newpost = await pool.query(
-            "INSERT INTO posts(title, body, time, userid) values ($1, $2, localtimestamp, $3) RETURNING*", [post.title, post.body, post.userid]
+            "INSERT INTO posts(title, text, time, userid, likes) values ($1, $2, localtimestamp, $3, 0) RETURNING*", [post.title, post.body, post.userid]
         );
         res.status(201).json({id: newpost.rows[0].id, userid: newpost.rows[0].userid, title: newpost.rows[0].title, body: newpost.rows[0].body});
     } catch (err) {
@@ -189,7 +189,7 @@ app.get('/api/posts', async(req, res) => {
         console.log("Posts GET (all) request has arrived");
         const posts = await pool.query(
             //"SELECT * FROM posts ORDER BY time DESC"
-            "SELECT posts.id, title, body, time, userid, COALESCE(users.username, 'Deleted User') AS username FROM posts LEFT JOIN users ON posts.userid = users.id ORDER BY time DESC"
+            "SELECT posts.id, title, text, time, userid, likes, COALESCE(users.username, 'Deleted User') AS author FROM posts LEFT JOIN users ON posts.userid = users.id ORDER BY time DESC"
         );
         res.status(200).json(posts.rows);
     } catch (err) {
@@ -205,7 +205,7 @@ app.get('/api/posts/:id', async(req, res) => {
         const { id } = req.params; // assigning all route "parameters" to the id "object"
         const posts = await pool.query( 
             //"SELECT * FROM posts WHERE id = $1", [id]
-            "SELECT posts.id, title, body, time, userid, username FROM posts JOIN users ON posts.userid = users.id WHERE posts.id = $1", [id]
+            "SELECT posts.id, title, text, time, userid, username AS author FROM posts JOIN users ON posts.userid = users.id WHERE posts.id = $1", [id]
         );
         res.status(200).json(posts.rows[0]);  // we already know that the row array contains a single element, and here we are trying to access it
     } catch (err) {
@@ -221,7 +221,7 @@ app.put('/api/posts/:id', async(req, res) => {
         const post = req.body;
         console.log("Posts PUT request has arrived");
         const updatepost = await pool.query(
-            "UPDATE posts SET (title, body, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1", [id, post.title, post.body, post.userid]
+            "UPDATE posts SET (title, text, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1", [id, post.title, post.body, post.userid]
         );
         res.status(200).json(updatepost);
     } catch (err) {
