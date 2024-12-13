@@ -1,27 +1,84 @@
 <template>
     <main>
-        <div>
+        <div v-if="this.authResult">
+            <button @click="Logout" class="logoutButton">Logout</button>
             <h1>Posts</h1>
-            <Post/>
-            <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
-            <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
+            <div class="common">
+                <article v-for="post in postList" :key="post.id">
+                    <h2 class="title"> {{ post.title }}</h2>
+                    <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
+                    <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
+                    <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
+                    <p>{{ post.text }}</p>
+                    <div class="like_container">
+                        <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
+                        {{ post.likes }} likes
+                    </div>
+                </article>
+                <div>
+                    <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
+                    <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
+                </div>
+            </div>
         </div>
+        <p v-else> User is not authenticated! </p>
     </main>
 </template>
 
 <script>
 
-import Post from '@/components/Post.vue';
+import auth from "../auth";
 
 export default	{
     name: "PostView",
     components:{
-        Post
     },
     data:function(){
-        return{}
+        return{
+        postList: [],
+        authResult: null //auth.authenticated()
+    }
     },
+    async mounted() {
+            console.log("mounted")
+            this.authResult = await auth.authenticated()
+            if (this.authResult) {
+                this.fetchPosts();
+            }
+            else {
+                this.$router.push("/signup")
+            }
+    }, 
     methods:{
+        Logout() {
+        fetch("http://localhost:3000/auth/logout", {
+            credentials: 'include', //  Don't forget to specify this if you need cookies
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            console.log('jwt removed');
+            //console.log('jwt removed:' + auth.authenticated());
+            this.$router.push("/signup");
+        })
+        .catch((e) => {
+            console.log(e);
+            console.log("error logout");
+        });
+        },
+        IncreaseLike(postId){
+            fetch(`http://localhost:3000/api/posts/like/${postId}`, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            const post = this.postList.find(post => post.id == postId);
+            post.likes += 1;
+        },
         ResetLikes(){
             fetch(`http://localhost:3000/api/resetlikes`, {
                 method: "PUT",
@@ -33,17 +90,112 @@ export default	{
                 console.log(e);
             })
             location.reload();
-        }
+        },
+        fetchPosts() {
+            fetch(`http://localhost:3000/api/posts`)
+                .then((response) => response.json())
+                .then((data) => (this.postList = data))
+                .catch((err) => console.log(err.message));
+        },
         // TODO: method DeletePosts()
     }
 }
 
 </script>
 
-<style>
+<style scoped>
+.common {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.userIcon {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 100%;
+  }
+
+/* Posts content box */
+article { 
+    display: inline; /* for boxing content */
+    border: 2px solid #000;   /* solid black border */
+    max-inline-size: 50%; /* uses 50% of the space */
+    background-color: #ebebeb; /* subtle gray background */
+    padding: 20px; /* Add padding inside the box */
+    margin-bottom: 20px; /* Space between the articles */
+    margin-top: 20px; /* Space from top */
+    border-radius: 25px;  /*  rounded box corners */
+}
+
+.like_button {
+    max-width: 50px;
+    max-height: 50px;
+    background: transparent;
+    border: none;
+    
+  }
+
+  .like_button img{
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: auto;
+    border-radius: 100%;
+  }
+
+  .like_button img:hover {
+    background-color: inherit;
+    filter: drop-shadow(0px 0px 20px aqua);
+}
+
+article {
+    margin-bottom: 50px;
+}
+
+article > img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+
+article > p {
+    font-family: Helvetica;
+}
+
+article > h2 {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style the paragraph that comes immediately after an image */
+article img + p {
+    font-style: italic;
+    color: black;
+}
 
 .resetButton {
     background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.logoutButton {
+    background-color: red;
     border: none;
     color: white;
     padding: 15px 32px;
