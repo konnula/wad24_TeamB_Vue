@@ -34,6 +34,7 @@ export default	{
             })
             location.reload();
         }
+        // TODO: method DeletePosts()
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <main>
         <div id="signup_form">
-          <form @submit.prevent="signUp" autocomplete="off">
+          <form autocomplete="off">
             <div class="form-group" id="email-group">
               <label for="email">Email:</label>
               <input type="email" placeholder="Email" name="email" id="email" required v-model="email">
@@ -11,9 +11,10 @@
               <input type="password" placeholder="Password" name="password" id="password" required v-model="password">
             </div>
             <div>
-              <button id="signup-button">Sign up</button>
+              <button class="signup-button" v-on:click.prevent="logIn">Log In</button>
+              <button class="signup-button" v-on:click.prevent="signUp">Sign up</button>
             </div>
-            <div v-if="errors.length" class="error-list"><b>The password is not valid:</b>
+            <div v-if="errors.length" class="error-list"><b>Errors:</b>
             <ul>
               <li v-for="error in errors" :key="error.id"> {{ error }}</li>
             </ul>
@@ -59,9 +60,59 @@
           if (!error_regex[i].test(this.password))
             this.errors.push(error_text[i+1]);
         }
-        if (!this.errors.length)
+        if (!this.errors.length) {
           this.success = true;
+          var data = {
+            email: this.email,
+            password: this.password,
+          };
+          fetch("http://localhost:3000/auth/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+              credentials: 'include', //  Don't forget to specify this if you need cookies
+              body: JSON.stringify(data),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+          console.log(data);
+          this.$router.push("/");
+          //location.assign("/");
+          })
+          .catch((e) => {
+            console.log(e);
+            console.log("error");
+          });
+        }
     },
+    logIn() {
+      this.errors = [];
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
+      fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+          credentials: 'include', //  Don't forget to specify this if you need cookies
+          body: JSON.stringify(data),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      if (data.error)
+        this.errors.push(data.error)
+      //this.$router.push("/");
+      if (!this.errors.length)
+        location.assign("/");
+      })
+      .catch((e) => {
+        console.log("Login error: " + e.message);
+      });
+    }
   }
 }
 </script>
@@ -95,7 +146,7 @@
   text-align: left;
 }
 
-#signup-button {
+.signup-button {
     background-color: green;
     border: none;
     color: white;
@@ -107,10 +158,11 @@
     border-radius: 12px;
 }
 
-
-#signup-button:hover {
+.signup-button:hover {
   filter: drop-shadow(0px 0px 20px aqua);
 }
+
+
 
 input {
   width: 100%;
