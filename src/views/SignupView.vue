@@ -1,4 +1,5 @@
 <template>
+  <h1> Login/Signup </h1>
   <div class="signup">
     <Signup/>
   </div>

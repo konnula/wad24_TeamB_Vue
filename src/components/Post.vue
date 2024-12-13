@@ -2,9 +2,9 @@
         <div class="common">
             <article v-for="post in postList" :key="post.id">
                 <h2 class="title"> {{ post.title }}</h2>
-                <img class="userIcon" :src="post.userLogo" alt=""> <br>
-                <div> By <b>{{ post.author }}</b> on {{ post.time }}</div> <br>
-                <img :src="post.imagePath" alt=""> <!-- alt empty so if does not exist image, will not display -->
+                <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
+                <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
+                <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
                 <p>{{ post.text }}</p>
                 <div class="like_container">
                     <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
@@ -29,14 +29,24 @@ export default{
     // },
     methods:{
         IncreaseLike(postId){
-            this.$store.commit("IncreaseLike",postId)
+            fetch(`http://localhost:3000/api/posts/like/${postId}`, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            const post = this.postList.find(post => post.id == postId);
+            post.likes += 1;
         },
         fetchPosts() {
-            fetch(`http://localhost:3000/api/posts/`)
+            fetch(`http://localhost:3000/api/posts`)
                 .then((response) => response.json())
                 .then((data) => (this.postList = data))
                 .catch((err) => console.log(err.message));
-        }
+        },
     },
     mounted() {
     this.fetchPosts();

@@ -11,9 +11,9 @@ POST http://localhost:3000/api/posts
 Content-Type: application/json
 
 {
-    "title": "New post 2!",
+    "title": "New post 1!",
     "body": "New body!",
-    "userid": 2
+    "userid": 1
 }
 
 ### Modify a post
@@ -25,6 +25,14 @@ Content-Type: application/json
     "body": "Newer body :)",
     "userid": 1
 }
+
+### Increase likes on a post
+PUT http://localhost:3000/api/posts/like/2
+Content-Type: application/json
+
+### Reset likes
+PUT http://localhost:3000/api/posts/resetlikes
+Content-Type: application/json
 
 ### Delete one post
 DELETE http://localhost:3000/api/posts/19

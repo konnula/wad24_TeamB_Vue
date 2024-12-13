@@ -3,8 +3,8 @@
         <div>
             <h1>Posts</h1>
             <Post/>
-
             <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
+            <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
         </div>
     </main>
 </template>
@@ -23,7 +23,16 @@ export default	{
     },
     methods:{
         ResetLikes(){
-            this.$store.commit("ResetLikes")
+            fetch(`http://localhost:3000/api/resetlikes`, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            location.reload();
         }
     }
 }
