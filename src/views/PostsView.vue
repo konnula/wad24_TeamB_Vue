@@ -1,33 +1,28 @@
 <template>
     <main>
-        <div v-if="this.authResult">
-            <button @click="Logout" class="logoutButton">Logout</button>
-            <h1>Posts</h1>
-            <div class="common">
-                <article v-for="post in postList" :key="post.id">
-                    <h2 class="title"> {{ post.title }}</h2>
-                    <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
-                    <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
-                    <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
-                    <p>{{ post.text }}</p>
-                    <div class="like_container">
-                        <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
-                        {{ post.likes }} likes
-                    </div>
-                </article>
-                <div>
-                    <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
-                    <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
+        <button @click="Logout" class="logoutButton">Logout</button>
+        <h1>Posts</h1>
+        <div class="common">
+            <article v-for="post in postList" :key="post.id">
+                <h2 class="title"> {{ post.title }}</h2>
+                <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
+                <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
+                <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
+                <p>{{ post.text }}</p>
+                <div class="like_container">
+                    <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
+                    {{ post.likes }} likes
                 </div>
+            </article>
+            <div>
+                <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
+                <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
             </div>
         </div>
-        <p v-else> User is not authenticated! </p>
     </main>
 </template>
 
 <script>
-
-import auth from "../auth";
 
 export default	{
     name: "PostView",
@@ -39,16 +34,10 @@ export default	{
         authResult: null //auth.authenticated()
     }
     },
-    async mounted() {
-            console.log("mounted")
-            this.authResult = await auth.authenticated()
-            if (this.authResult) {
-                this.fetchPosts();
-            }
-            else {
-                this.$router.push("/signup")
-            }
-    }, 
+    mounted() {
+        this.fetchPosts();
+        console.log("mounted");
+    },
     methods:{
         Logout() {
         fetch("http://localhost:3000/auth/logout", {
