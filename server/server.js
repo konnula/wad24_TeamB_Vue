@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8081', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -221,7 +221,7 @@ app.put('/api/posts/:id', async(req, res) => {
         const post = req.body;
         console.log("Posts PUT request has arrived");
         const updatepost = await pool.query(
-            "UPDATE posts SET (title, text, time, userid, likes) = ($2, $3, localtimestamp, $4, $5) WHERE id = $1", [id, post.title, post.body, post.userid, post.likes]
+            "UPDATE posts SET (title, text, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1", [id, post.title, post.body, post.userid]
         );
         res.status(200).json(updatepost);
     } catch (err) {

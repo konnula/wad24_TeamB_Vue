@@ -62,6 +62,7 @@ export default	{
                 "Content-Type": "application/json",
                 },
             })
+            .then((response) => response.json())
             .catch((e) => {
                 console.log(e);
             })
@@ -75,6 +76,7 @@ export default	{
                 "Content-Type": "application/json",
                 },
             })
+            .then((response) => response.json())
             .catch((e) => {
                 console.log(e);
             })
@@ -87,6 +89,19 @@ export default	{
                 .catch((err) => console.log(err.message));
         },
         // TODO: method DeletePosts()
+        DeletePosts(){
+            fetch(`http://localhost:3000/api/posts`, {
+                method: "DELETE",
+                headers: {
+                "Content-Type": "application/json",
+                },
+            })
+            .then((response) => response.json())
+            .catch((e) => {
+                console.log(e);
+            })
+            location.reload();
+        }
     }
 }
 
