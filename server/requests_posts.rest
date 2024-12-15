@@ -13,7 +13,7 @@ Content-Type: application/json
 {
     "title": "New post 1!",
     "body": "New body!",
-    "userid": 1
+    "userid": 2
 }
 
 ### Modify a post

@@ -11,7 +11,6 @@
               <input type="password" placeholder="Password" name="password" id="password" required v-model="password">
             </div>
             <div>
-              <button class="signup-button" v-on:click.prevent="logIn">Log In</button>
               <button class="signup-button" v-on:click.prevent="signUp">Sign up</button>
             </div>
             <div v-if="errors.length" class="error-list"><b>Errors:</b>
@@ -85,33 +84,6 @@
             console.log("error");
           });
         }
-    },
-    logIn() {
-      this.errors = [];
-      var data = {
-        email: this.email,
-        password: this.password
-      };
-      // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
-      fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-          credentials: 'include', //  Don't forget to specify this if you need cookies
-          body: JSON.stringify(data),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-      if (data.error)
-        this.errors.push(data.error)
-      //this.$router.push("/");
-      if (!this.errors.length)
-        location.assign("/");
-      })
-      .catch((e) => {
-        console.log("Login error: " + e.message);
-      });
     }
   }
 }

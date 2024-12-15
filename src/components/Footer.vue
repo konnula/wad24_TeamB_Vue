@@ -13,7 +13,7 @@
       </ul>
       <ul class="menu">
         <li class="menu__item"><router-link to="/" class="menu__link">Home</router-link></li>
-        <li class="menu__item"><router-link to="/signup" class="menu__link">Signup</router-link></li>
+        <li class="menu__item"><router-link to="/Login" class="menu__link">Login</router-link></li>
         <li class="menu__item"><a class="menu__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Secret</a></li>
       </ul>
       <p>&copy;2024 WAD Team B: Triin Joon, Maksim Kelus, Herbert Konnula</p>

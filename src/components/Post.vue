@@ -35,6 +35,7 @@ export default{
                 "Content-Type": "application/json",
                 },
             })
+            .then((response) => response.json())
             .catch((e) => {
                 console.log(e);
             })

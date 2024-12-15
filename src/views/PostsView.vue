@@ -3,17 +3,7 @@
         <button @click="Logout" class="logoutButton">Logout</button>
         <h1>Posts</h1>
         <div class="common">
-            <article v-for="post in postList" :key="post.id">
-                <h2 class="title"> {{ post.title }}</h2>
-                <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
-                <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
-                <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
-                <p>{{ post.text }}</p>
-                <div class="like_container">
-                    <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
-                    {{ post.likes }} likes
-                </div>
-            </article>
+            <Post/> <!-- Post component -->
             <div>
                 <button class="resetButton" v-on:click="ResetLikes">Reset Likes</button>
                 <button class="resetButton" v-on:click="DeletePosts">Delete all posts</button>
@@ -24,18 +14,25 @@
 
 <script>
 
+import Post from '@/components/Post.vue';
+import auth from '@/auth.js';
+
+
 export default	{
     name: "PostView",
     components:{
+        Post
     },
     data:function(){
         return{
         postList: [],
-        authResult: null //auth.authenticated()
+        authResult: auth.authenticated()
     }
     },
     mounted() {
-        this.fetchPosts();
+        if (!this.authResult) {
+            this.$router.push("/signup");
+        }
         console.log("mounted");
     },
     methods:{
@@ -48,27 +45,27 @@ export default	{
             console.log(data);
             console.log('jwt removed');
             //console.log('jwt removed:' + auth.authenticated());
-            this.$router.push("/signup");
+            this.$router.push("/login");
         })
         .catch((e) => {
             console.log(e);
             console.log("error logout");
         });
         },
-        IncreaseLike(postId){
-            fetch(`http://localhost:3000/api/posts/like/${postId}`, {
-                method: "PUT",
-                headers: {
-                "Content-Type": "application/json",
-                },
-            })
-            .then((response) => response.json())
-            .catch((e) => {
-                console.log(e);
-            })
-            const post = this.postList.find(post => post.id == postId);
-            post.likes += 1;
-        },
+        // IncreaseLike(postId){
+        //     fetch(`http://localhost:3000/api/posts/like/${postId}`, {
+        //         method: "PUT",
+        //         headers: {
+        //         "Content-Type": "application/json",
+        //         },
+        //     })
+        //     .then((response) => response.json())
+        //     .catch((e) => {
+        //         console.log(e);
+        //     })
+        //     const post = this.postList.find(post => post.id == postId);
+        //     post.likes += 1;
+        // },
         ResetLikes(){
             fetch(`http://localhost:3000/api/resetlikes`, {
                 method: "PUT",
@@ -82,12 +79,12 @@ export default	{
             })
             location.reload();
         },
-        fetchPosts() {
-            fetch(`http://localhost:3000/api/posts`)
-                .then((response) => response.json())
-                .then((data) => (this.postList = data))
-                .catch((err) => console.log(err.message));
-        },
+        // fetchPosts() {
+        //     fetch(`http://localhost:3000/api/posts`)
+        //         .then((response) => response.json())
+        //         .then((data) => (this.postList = data))
+        //         .catch((err) => console.log(err.message));
+        // },
         // TODO: method DeletePosts()
         DeletePosts(){
             fetch(`http://localhost:3000/api/posts`, {
