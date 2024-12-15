@@ -31,7 +31,7 @@ export default	{
     },
     mounted() {
         if (!this.authResult) {
-            this.$router.push("/signup");
+            this.$router.push("/login");
         }
         console.log("mounted");
     },

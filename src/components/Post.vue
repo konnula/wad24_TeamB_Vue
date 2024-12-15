@@ -1,15 +1,15 @@
 <template>
         <div class="common">
-            <article v-for="post in postList" :key="post.id">
-                <h2 class="title"> {{ post.title }}</h2>
-                <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
-                <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
-                <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
-                <p>{{ post.text }}</p>
-                <div class="like_container">
-                    <button class="like_button" v-on:click="IncreaseLike(post.id)"><img src="../assets/like_button.png" alt=""></button>
-                    {{ post.likes }} likes
-                </div>
+            <article v-for="post in postList" :key="post.id" v-on:click="this.$router.push(`/post/${post.id}`)">
+                    <h2 class="title"> {{ post.title }}</h2>
+                    <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
+                    <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
+                    <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
+                    <p>{{ post.text }}</p>
+                    <div class="like_container">
+                        <button class="like_button" v-on:click="IncreaseLike(post.id, $event)"><img src="../assets/like_button.png" alt=""></button>
+                        {{ post.likes }} likes
+                    </div>
             </article>
         </div>
 </template>
@@ -28,7 +28,10 @@ export default{
     //     }
     // },
     methods:{
-        IncreaseLike(postId){
+        IncreaseLike(postId, event){
+                        if (event) {
+                event.stopPropagation(); // Prevent the click from bubbling to <article>
+            }
             fetch(`http://localhost:3000/api/posts/like/${postId}`, {
                 method: "PUT",
                 headers: {
