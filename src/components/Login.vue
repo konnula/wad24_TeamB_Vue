@@ -11,15 +11,15 @@
                 <input type="password" placeholder="Password" name="password" id="password" required v-model="password">
               </div>
               <div>
-                <button class="signup-button" v-on:click.prevent="logIn">Login</button>
-                <button class="signup-button" v-on:click="this.$router.push('/signup')">Sign Up</button>
+                <button class="button" id="login-button" v-on:click.prevent="logIn">Login</button>
+                <button class="button" id="signup-button" v-on:click="this.$router.push('/signup')">Sign Up</button>
               </div>
               <div v-if="errors.length" class="error-list"><b>Errors:</b>
               <ul>
                 <li v-for="error in errors" :key="error.id"> {{ error }}</li>
               </ul>
               </div>
-              <div v-else-if="success" class="signup-success"><b>Login successfully!</b></div>
+              <div v-else-if="success" class="signup-success"><b>Login successful!</b></div>
             </form>
           </div>
     </main>
@@ -54,8 +54,9 @@
         .then((response) => response.json())
         .then((data) => {
         if (data.error)
-          this.errors.push(data.error)
-        //this.$router.push("/");
+          this.errors.push(data.error);
+        else 
+          localStorage.setItem("userId", data.user_id);
         if (!this.errors.length)
           location.assign("/");
         })
@@ -68,13 +69,14 @@
   </script>
   
   <style scoped>
+
   #signup_form {
     grid-template-columns: auto auto;
     gap: 10px;
     background-color: #f5f5f5;
     flex-direction: column;
     padding: 50px;
-    margin: 10% 30% 10%;
+    margin: 50px 20% 50px;
     border-radius: 50px;
   }
   
@@ -95,22 +97,30 @@
     flex: 1 1 100px; 
     text-align: left;
   }
-  
-  .signup-button {
-      background-color: green;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 12px;
-  }
-  
-  .signup-button:hover {
+
+  .button {
+    margin: 10px 15%;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.button:hover {
     filter: drop-shadow(0px 0px 20px aqua);
-  }
+}
+  
+#login-button {
+  background-color: green;
+}
+
+#signup-button {
+  background-color: #008CBA;
+}
+  
   
   
   

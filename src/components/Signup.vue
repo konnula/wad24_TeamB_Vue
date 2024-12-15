@@ -75,7 +75,11 @@
           })
           .then((response) => response.json())
           .then((data) => {
-          console.log(data);
+            console.log(data);
+            if (data.error)
+              this.errors.push(data.error);
+            else 
+              localStorage.setItem("userId", data.user_id);
           this.$router.push("/");
           //location.assign("/");
           })

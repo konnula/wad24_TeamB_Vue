@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8081', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -167,18 +167,19 @@ app.post('/api/posts', async(req, res) => {
     try {
         console.log("Posts POST request has arrived");
         const post = req.body;
+        console.log(req.body);
 
         // Ensure the request contains all required fields
-        if (!post.userid || !post.title || !post.body) {
+        if (!post.userid || !post.title || !post.text) {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
         const newpost = await pool.query(
-            "INSERT INTO posts(title, text, time, userid, likes) values ($1, $2, localtimestamp, $3, 0) RETURNING*", [post.title, post.body, post.userid]
+            "INSERT INTO posts(title, text, time, userid, likes) values ($1, $2, localtimestamp, $3, 0) RETURNING*", [post.title, post.text, post.userid]
         );
-        res.status(201).json({id: newpost.rows[0].id, userid: newpost.rows[0].userid, title: newpost.rows[0].title, body: newpost.rows[0].body});
+        res.status(201).json(newpost.rows[0]);
     } catch (err) {
-        console.error("Database error: " + err.message);
+        console.log("Database error: " + err.message);
         res.status(500).json({ error: "Internal server error" });
     }
 });
@@ -221,9 +222,10 @@ app.put('/api/posts/:id', async(req, res) => {
         const post = req.body;
         console.log("Posts PUT request has arrived");
         const updatepost = await pool.query(
-            "UPDATE posts SET (title, text, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1", [id, post.title, post.text, post.userid]
+            "UPDATE posts SET (title, text, time, userid) = ($2, $3, localtimestamp, $4) WHERE id = $1 RETURNING *", [id, post.title, post.text, post.userid]
         );
-        res.status(200).json(updatepost);
+        console.log("hello there");
+        res.status(200).json(updatepost.rows[0]);
     } catch (err) {
         console.error("Database error: " + err.message);
         res.status(500).json({ error: "Internal server error" });

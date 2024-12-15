@@ -1,6 +1,18 @@
 <template>
         <div class="common">
-            <article v-for="post in postList" :key="post.id" v-on:click="this.$router.push(`/post/${post.id}`)">
+            <div class = "post" v-for="post in postList" :key="post.id">
+                <article class="userArticle" v-if="this.userId == post.userid" v-on:click="this.$router.push(`/post/${post.id}`)">
+                    <h2 class="title"> {{ post.title }}</h2>
+                    <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
+                    <div> By <b> You ({{ post.author }})</b> on {{ post.time.split("T")[0] }} </div> <br>
+                    <!--<img :src="post.imagePath" alt=""> --><!-- alt empty so if does not exist image, will not display -->
+                    <p>{{ post.text }}</p>
+                    <div class="like_container">
+                        <button class="like_button" v-on:click="IncreaseLike(post.id, $event)"><img src="../assets/like_button.png" alt=""></button>
+                        {{ post.likes }} likes
+                    </div>
+                </article>
+                <article v-else>
                     <h2 class="title"> {{ post.title }}</h2>
                     <!--<img class="userIcon" :src="post.userLogo" alt=""> <br>-->
                     <div> By <b>{{ post.author }}</b> on {{ post.time.split("T")[0] }}</div> <br>
@@ -10,7 +22,8 @@
                         <button class="like_button" v-on:click="IncreaseLike(post.id, $event)"><img src="../assets/like_button.png" alt=""></button>
                         {{ post.likes }} likes
                     </div>
-            </article>
+                </article>
+            </div>
         </div>
 </template>
 
@@ -19,7 +32,8 @@ export default{
     name: "PostComponent",
     data: function(){
         return{
-            postList: []
+            postList: [],
+            userId: 0
         }
     },
     // computed: {
@@ -53,14 +67,16 @@ export default{
         },
     },
     mounted() {
-    this.fetchPosts();
-    console.log("mounted");
+        this.fetchPosts();
+        if (localStorage.getItem('userId'))
+            this.userId = Number(localStorage.getItem('userId'));
+        console.log("mounted " + this.userId);
     }
 }
 
 </script>
 
-<style>
+<style scoped>
 
 .common {
     display: flex;
@@ -70,22 +86,22 @@ export default{
     padding-top: 10px;
 }
 
-.userIcon {
-    max-width: 50px;
-    max-height: 50px;
-    border-radius: 100%;
-  }
-
 /* Posts content box */
-article { 
+.post {
     display: inline; /* for boxing content */
+    inline-size: 80%; /* uses 50% of the space */
+    margin-bottom: 5px; /* Space between the articles */
+}
+
+article { 
     border: 2px solid #000;   /* solid black border */
-    max-inline-size: 50%; /* uses 50% of the space */
     background-color: #ebebeb; /* subtle gray background */
     padding: 20px; /* Add padding inside the box */
-    margin-bottom: 20px; /* Space between the articles */
-    margin-top: 20px; /* Space from top */
     border-radius: 25px;  /*  rounded box corners */
+}
+
+.userArticle {
+    background-color: lightblue;
 }
 
 .like_button {

@@ -1,5 +1,5 @@
 <template>
-    <div class="Edit Post">
+    <div class="A Post">
       <div id="form">
         <h3>A Post</h3>
         <label for="title">Title: </label>
@@ -8,8 +8,8 @@
         <input name="body" type="text" id="body" required v-model="post.text" />
       </div>
       <div class="container">
-        <button @click="updatePost" class="updatePost">Update Post</button>
-        <button @click="deletePost" class="deletePost">Delete Post</button>
+        <button @click="addPost" class="addPost">Add Post</button>
+        <button @click="cancelAddPost" class="cancelAddPost">Cancel Post</button>
       </div>
     </div>
   </template>
@@ -20,14 +20,12 @@
 import auth from '@/auth.js';
 
   export default {
-    name: "EditPostView",
+    name: "Post",
     data() {
       return {
         post: {
-            "id": "",
             "title": "",
-            "text": "",
-            "userid": 0,
+            "text": ""
         },
         authResult: auth.authenticated()
       };
@@ -36,54 +34,49 @@ import auth from '@/auth.js';
         if (!this.authResult) {
             this.$router.push("/login");
         }
-      this.fetchPost(this.$route.params.id);
     },
     methods: {
-      fetchPost(id) {
-        fetch(`http://localhost:3000/api/posts/${id}`)
-          .then((response) => response.json())
-          .then((data) => (this.post = data))
-          .catch((err) => console.error(err.message));
-      },
-      updatePost() {
+      addPost() {
+        console.log(this.post);
         let localUserId = Number(localStorage.getItem('userId'));
-        fetch(`http://localhost:3000/api/posts/${this.post.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(
+        console.log("User id: " + localUserId + ", type:" + typeof(localUserId));
+        if (localUserId) {
+          console.log("Post request sent: " + JSON.stringify(
             {
-                "id": this.post.id,
-                "title": this.post.title,
-                "text": this.post.text,
-                "userid": localUserId
+              "title": this.post.title,
+              "text": this.post.text,
+              "userid": localUserId
             }
-          ),
-        })
-          .then((response) => {
-            console.log(response);
-            this.$router.push("/");
+          ))
+          fetch(`http://localhost:3000/api/posts`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+              {
+              "title": this.post.title,
+              "text": this.post.text,
+              "userid": localUserId
+              }
+            ),
           })
-          .catch((e) => {
-            console.log(e);
-          });
+            .then((response) => {
+              console.log(response.data);
+              this.$router.push("/");
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+          } else {
+            console.error("Error finding user id.");
+        }
       },
-      deletePost() {
-        fetch(`http://localhost:3000/api/posts/${this.post.id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        })
-          .then((response) => {
-            console.log(response.data);
-            this.$router.push("/");
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      },
+      cancelAddPost() {
+        this.$router.push("/")
     }
-  };
+  }
+}
   </script>
   
   <style scoped>
