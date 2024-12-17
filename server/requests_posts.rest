@@ -1,0 +1,40 @@
+### Get all posts
+GET http://localhost:3000/api/posts 
+Content-Type: application/json
+
+### Get one post
+GET http://localhost:3000/api/posts/19
+Content-Type: application/json
+
+### Post a post
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+{
+    "title": "New post 1!",
+    "text": "New body!",
+    "userid": 2
+}
+
+### Modify a post
+PUT http://localhost:3000/api/posts/11
+Content-Type: application/json
+
+{
+    "title": "Post update",
+    "body": "Newer body :)",
+    "userid": 1
+}
+
+### Increase likes on a post
+PUT http://localhost:3000/api/posts/like/2
+Content-Type: application/json
+
+### Reset likes
+PUT http://localhost:3000/api/posts/resetlikes
+Content-Type: application/json
+
+### Delete one post
+DELETE http://localhost:3000/api/posts/19
+
+### Delete all posts
+DELETE http://localhost:3000/api/posts

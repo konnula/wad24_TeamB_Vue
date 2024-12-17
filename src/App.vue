@@ -13,7 +13,9 @@ export default {
   components: {
     Header,
     Footer
-  }
+  },
+  methods: {
+  }, 
 }
 
 </script>

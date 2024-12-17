@@ -1,0 +1,36 @@
+### signup a user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+  {
+    "email": "user@ee1",
+    "password": "user"
+  }
+
+### login a user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+  {
+    "email": "user@ee",
+    "password": "user"
+  }
+
+
+
+
+###  Authenticate a user, this will not work for you unless you replace the token with one created for your user
+GET http://localhost:3000/auth/authenticate
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzM0MDIwOTMwLCJleHAiOjE3MzQwMjQ1MzB9.KO9NfUyEzBRt152uC_fU3y7z9MOb_V6hSv9_SKFfjvo
+
+### Logout user
+GET http://localhost:3000/auth/logout
+
+### After user logout the JWT token should be invalid
+GET http://localhost:3000/auth/authenticate
+
+
+### Get users list
+GET http://localhost:3000/auth/users
+Content-Type: application/json
+

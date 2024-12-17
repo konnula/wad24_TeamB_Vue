@@ -1,4 +1,4 @@
-Practice Session 6, Team B
+# Practice Session 6, Team B
 
 **Please do not make pull requests, it is a school project :)**
 
@@ -6,21 +6,35 @@ Triin Joon, Maksim Kelus, Herbert Konnula
 
 GitHub Repo: https://github.com/konnula/wad24_TeamB_Vue
 
-Deployed project: https://konnula.github.io/wad24_TeamB_Vue/#/
+Deployed project: https://konnula.github.io/wad24_TeamB_Vue/#/ - *outdated*
 
 Web Application Development 2024
 
+
 ## Project setup
+
+### Database setup
+- Install PostgreSQL
+- Open pgAdmin
+- Make database user "wad" with password "wad24" (no extra rights needed)
+- Make a database named "WAD24_Team-B" with owner "wad"
+
+### Install dependencies
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run the Back-end
+```
+npm run server
+```
+
+### Run the Front-end with hot reload
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production
 ```
 npm run build
 ```
