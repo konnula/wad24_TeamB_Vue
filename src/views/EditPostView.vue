@@ -8,8 +8,8 @@
         <input name="body" type="text" id="body" required v-model="post.text" />
       </div>
       <div class="container">
-        <button @click="updatePost" class="updatePost">Update Post</button>
-        <button @click="deletePost" class="deletePost">Delete Post</button>
+        <button @click="updatePost" class="updatePost button">Update Post</button>
+        <button @click="deletePost" class="deletePost button">Delete Post</button>
       </div>
     </div>
   </template>
@@ -55,8 +55,8 @@ import auth from '@/auth.js';
           body: JSON.stringify(
             {
                 "id": this.post.id,
-                "title": this.post.title,
-                "text": this.post.text,
+                "title": "(Edited) "+ this.post.title.replace("(Edited)","").trim(),
+                "text": this.post.text.trim(),
                 "userid": localUserId
             }
           ),
@@ -117,13 +117,27 @@ import auth from '@/auth.js';
     border-bottom: 1px solid white;
     color: blue;
   }
-  button {
-    background: rgb(8, 110, 110);
-    border: 0;
-    padding: 10px 20px;
-    margin-top: 20px;
+  .button {
+    margin: 10px 5%;
+    border: none;
     color: white;
-    border-radius: 20px;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .button:hover {
+      filter: drop-shadow(0px 0px 20px aqua);
+  }
+
+  .updatePost {
+    background-color: green;
+  }
+
+  .deletePost {
+    background-color: red;
   }
   .container {
     display: flex;

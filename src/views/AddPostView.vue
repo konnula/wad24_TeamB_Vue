@@ -8,8 +8,8 @@
         <input name="body" type="text" id="body" required v-model="post.text" />
       </div>
       <div class="container">
-        <button @click="addPost" class="addPost">Add Post</button>
-        <button @click="cancelAddPost" class="cancelAddPost">Cancel Post</button>
+        <button @click.prevent="addPost" class="addPost button">Add Post</button>
+        <button @click="cancelAddPost" class="cancelAddPost button">Cancel Post</button>
       </div>
     </div>
   </template>
@@ -37,6 +37,9 @@ import auth from '@/auth.js';
     },
     methods: {
       addPost() {
+        if (!(this.post.text.trim() && this.post.title.trim())){
+          return;
+        }
         console.log(this.post);
         let localUserId = Number(localStorage.getItem('userId'));
         console.log("User id: " + localUserId + ", type:" + typeof(localUserId));
@@ -55,8 +58,8 @@ import auth from '@/auth.js';
             },
             body: JSON.stringify(
               {
-              "title": this.post.title,
-              "text": this.post.text,
+              "title": this.post.title.trim(),
+              "text": this.post.text.trim(),
               "userid": localUserId
               }
             ),
@@ -110,14 +113,29 @@ import auth from '@/auth.js';
     border-bottom: 1px solid white;
     color: blue;
   }
-  button {
-    background: rgb(8, 110, 110);
-    border: 0;
-    padding: 10px 20px;
-    margin-top: 20px;
+  .button {
+    margin: 10px 5%;
+    border: none;
     color: white;
-    border-radius: 20px;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
   }
+
+  .button:hover {
+      filter: drop-shadow(0px 0px 20px aqua);
+  }
+
+  .addPost {
+    background-color: green;
+  }
+
+  .cancelAddPost {
+    background-color: red;
+  }
+
   .container {
     display: flex;
     justify-content: center;
