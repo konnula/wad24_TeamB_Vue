@@ -6,8 +6,6 @@ Triin Joon, Maksim Kelus, Herbert Konnula
 
 GitHub Repo: https://github.com/konnula/wad24_TeamB_Vue
 
-Deployed project: https://konnula.github.io/wad24_TeamB_Vue/#/ - *outdated*
-
 Web Application Development 2024
 
 
